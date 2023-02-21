@@ -104,7 +104,6 @@ d3.json("http://127.0.0.1:5000/api/v1.0/type_counts").then(function (data) {
 
 // Building scatterplot(fran)
 d3.json(url).then(function (data) {
-
     let trace1 = {
         x: data.map(row => row.base.Defense),
         y: data.map(row => row.base.Attack),
@@ -119,7 +118,7 @@ d3.json(url).then(function (data) {
             showlegend: true,
           }
     };
-
+   // Creating Dummy plot to show Colorscal Legend (fran)
     let trace2 = {
         z:[[0],[250]],
         type: 'heatmap',
@@ -139,7 +138,7 @@ d3.json(url).then(function (data) {
     let config1 = {
         responsive: true
     }
-    // plotting scatter chart
+    // plotting scatter chart (fran)
     Plotly.newPlot('scatter', data, layout1, config1)
 })
  
