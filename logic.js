@@ -102,3 +102,43 @@ d3.json("http://127.0.0.1:5000/api/v1.0/type_counts").then(function (data) {
     Plotly.newPlot('bubble', data, layout1, config1)
 })
 
+// Building scatterplot(fran)
+d3.json(url).then(function (data) {
+    let trace1 = {
+        x: data.map(row => row.base.Defense),
+        y: data.map(row => row.base.Attack),
+        mode: 'markers',
+        type: 'scatter',
+        text: data.map(row => row.name.english),
+        name: 'Pokemon',
+        marker: {
+            size: 8,
+            color: data.map(row => row.base.HP),
+            colorscale: 'Portland',
+            showlegend: true,
+          }
+    };
+   // Creating Dummy plot to show Colorscal Legend (fran)
+    let trace2 = {
+        z:[[0],[250]],
+        type: 'heatmap',
+        colorscale: 'Portland',
+    };
+
+    var data = [trace1, trace2,];
+
+    var layout1 = {
+        title: 'Attack and Defense Distribution <br> (Colorscale shows HP)',
+        xaxis: {title: 'Defense'},
+        yaxis: {title: 'Attack'},
+        showlegend: true,
+        legend: {"orientation": "h"}
+    };
+
+    let config1 = {
+        responsive: true
+    }
+    // plotting scatter chart (fran)
+    Plotly.newPlot('scatter', data, layout1, config1)
+})
+ 
