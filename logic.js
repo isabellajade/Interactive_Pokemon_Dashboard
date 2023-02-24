@@ -10,6 +10,7 @@ d3.json(url).then(function (data) {
         dropDown.append("option").text(pokemon.name.english)
     })
     buildChart(data[0].name.english)
+    buildComparison(data[0].name.english)
 });
 
 // option change function (changes the charts when a new dropdown is selected)
@@ -72,6 +73,7 @@ let buildChart = (selectPokemon) => {
         let picture = d3.select("#picture")
         picture.html("")
         picture.append("img").attr("src", `./Images/pokemon/${pokemonData.id}.png`).attr("width", 165).attr("height", 165)
+        
     })
 }
 
@@ -270,6 +272,9 @@ let buildComparison = (selectedID) => {
                 } 
             ]
         };
+
+        // buildComparison(data[0].name)
+        console.log(data[0])
 
         option && myChart.setOption(option);
     })         
