@@ -15,6 +15,7 @@ d3.json(url).then(function (data) {
 // option change function (changes the charts when a new dropdown is selected)
 function optionChanged(selectedID) {
     buildChart(selectedID)
+    buildComparison(selectedID)
 }
 
 // building bar chart, pokemon name selector, and image
@@ -79,7 +80,7 @@ d3.json("http://127.0.0.1:5000/api/v1.0/type_counts").then(function (data) {
     let trace1 = {
         x: data.x,
         y: data.y,
-        // text: data,
+        // text: `${data.x} and ${data.y}`,
         mode: 'markers',
         marker: {
             color: data.size,
@@ -116,11 +117,11 @@ d3.json(url).then(function (data) {
             color: data.map(row => row.base.HP),
             colorscale: 'Portland',
             showlegend: true,
-          }
+        }
     };
-   // Creating Dummy plot to show Colorscal Legend (fran)
+    // Creating Dummy plot to show Colorscal Legend (fran)
     let trace2 = {
-        z:[[0],[250]],
+        z: [[0], [250]],
         type: 'heatmap',
         colorscale: 'Portland',
     };
@@ -129,10 +130,10 @@ d3.json(url).then(function (data) {
 
     var layout1 = {
         title: 'Attack and Defense Distribution <br> (Colorscale shows HP)',
-        xaxis: {title: 'Defense'},
-        yaxis: {title: 'Attack'},
+        xaxis: { title: 'Defense' },
+        yaxis: { title: 'Attack' },
         showlegend: true,
-        legend: {"orientation": "h"}
+        legend: { "orientation": "h" }
     };
 
     let config1 = {
@@ -141,4 +142,135 @@ d3.json(url).then(function (data) {
     // plotting scatter chart (fran)
     Plotly.newPlot('scatter', data, layout1, config1)
 })
- 
+
+// building the comparison chart
+let buildComparison = (selectedID) => {
+    // selecting pokemon csv data
+    d3.csv("pokemon.csv").then((data) => {
+        // positioning the chart in our comparison div tag
+        var chartDom = document.getElementById('comparison');
+        // filtering the data
+        var pokemonData = data.filter(row => row.name == selectedID)[0]
+        console.log(pokemonData)
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        option = {
+            backgroundColor: '#FFFFFF',
+            tooltip: {},
+            legend: {
+                textStyle: { color: '#000000' }
+            },
+            // x axis labels
+            xAxis: [
+                {
+                    data: [selectedID, '', "Average Person"],
+                    axisTick: { show: false },
+                    axisLine: { show: false },
+                    axisLabel: {
+                        margin: 20,
+                        color: '#000000',
+                        fontSize: 14
+                    }
+                }
+            ],
+            // empty y axis
+            yAxis: {
+                splitLine: { show: false },
+                axisTick: { show: false },
+                axisLine: { show: false },
+                axisLabel: { show: false }
+            },
+            markLine: {
+                z: -1
+            },
+            animationEasing: 'elasticOut',
+            series: [
+                {
+                    type: 'pictorialBar',
+                    name: 'All',
+                    emphasis: {
+                        scale: true
+                    },
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter: '{c} m',
+                        fontSize: 16,
+                        color: '#1976e0'
+                    },
+                    data: [
+                        // pokemon image, positioning, and height
+                        {
+                            value: Number(pokemonData["height_m"]),
+                            symbol: 'image://' + `Images/pokemon/${pokemonData['pokedex_number']}.png`,
+                            symbolSize: ['150%', '150%'],
+                            symbolOffset: [0, '-15%'],
+                            symbolPosition: 'end',
+                        },
+                        {
+                            value: '-',
+                            symbol: 'none'
+                        },
+                        // ash ketchum image, positioning, and height
+                        {
+                            value: 1.7,
+                            symbol:
+                                'image://' + `Images/ash.png`,
+                            symbolSize: ['200%', '105%'],
+                            symbolPosition: 'end',
+                            z: 10
+                        },
+                    ],
+                    // dotted lines on the chart
+                    markLine: {
+                        symbol: ['none', 'none'],
+                        label: {
+                            show: false
+                        },
+                        lineStyle: {
+                            color: '#1976e0',
+                            width: 2
+                        },
+                        // dotted line positioning
+                        data: [
+                            {
+                                yAxis: 1.7
+                            },
+                            {
+                                yAxis: Number(pokemonData["height_m"])
+                            }
+                        ]
+                    }
+                },
+                {
+                    name: 'All',
+                    type: 'pictorialBar',
+                    barGap: '-100%',
+                    symbol: 'none',
+                    itemStyle: {
+                        color: '#185491'
+                    },
+                    silent: true,
+                    symbolOffset: [0, '50%'],
+                    z: -10,
+                    data: [
+                        {
+                            value: 1,
+                            symbolSize: ['150%', 50]
+                        },
+                        {
+                            value: '-'
+                        },
+                        {
+                            value: 1,
+                            symbolSize: ['200%', 50]
+                        },
+                    ]
+                } 
+            ]
+        };
+
+        option && myChart.setOption(option);
+    })         
+}
