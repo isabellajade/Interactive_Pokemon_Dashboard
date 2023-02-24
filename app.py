@@ -1,4 +1,5 @@
 import numpy as np
+import pymongo
 
 # import sqlalchemy
 # from sqlalchemy.ext.automap import automap_base
@@ -10,15 +11,15 @@ from flask_cors import CORS
 
 import json
 from pprint import pprint
-import requests
 
 url = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json"
 
-pokemonDataResponse = requests.get(url)
+#pokemonDataResponse = requests.get(url)
 
-pokemonData = pokemonDataResponse.json()
+client = pymongo.MongoClient("mongodb+srv://admin:project123@tccedxproject3group3.kbc4ahv.mongodb.net/pokemon_data?retryWrites=true&w=majority")
+db = client["pokemon_data"]
 
-
+pokemonData = list(db["pokemon_collection"].find())
 
 #################################################
 # Database Setup
