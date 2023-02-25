@@ -1,6 +1,7 @@
 # import dependencies
 
 import numpy as np
+
 import pymongo
 
 from flask import Flask, jsonify
@@ -13,6 +14,13 @@ import requests
 # assigning url
 
 #url = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json"
+=======
+
+url = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json"
+
+# making get request
+
+pokemonDataResponse = requests.get(url)
 
 # making get request
 
