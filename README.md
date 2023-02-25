@@ -1,5 +1,55 @@
-# Project3_Pokemon
-## Pokemon Project 3
+# Pokemon Project 3
+For this project we used JavaScript in combination with HTML/CSS, a Python Flask-powered API, and a MongoDB database to create a Pokemon inspired dashboard with multiple interactive charts that update from the same data. The charts on our dashboard were created with the use of Plotly and eCharts. The data was pulled using D3. 
+
+## Dashboard
+Run the [app.py](https://github.com/isabellajade/Project3_Pokemon/blob/main/app.py) file to open the Flask API
+
+Then open the [index.html](https://github.com/isabellajade/Project3_Pokemon/blob/main/index.html) file to view the Pokemon dashboard
+
+
+# Interactive Charts
+When selecting a Pokemon name from the dropdown menu, the first four charts on the dashboard will change using the data associated with the selected pokemon. 
+
+## Pokemon Dropdown Menu
+This is the dropdown menu that controls the first four charts on the dashboard. In this example we will be selecting Bulbasaur, and it will change the following charts with this Pokemon's data.
+
+![Dropdown Menu]()
+
+## Pokemon Type Display Box
+This box displays the selected Pokemon's type(s).
+
+![Pokemon Type]()
+
+## Glamour Shot
+In this box is a picture of the selected Pokemon. For this example, we have a picture of Bulbasaur.
+
+![Picure of Pokemon]()
+
+## Pokemon Stats
+Displayed here is a bar chart of the selected Pokemon's stats. This includes their HP, Attack, Defense, Special Attack, Special Defense, and Speed.
+
+![Pokemon Stats]()
+
+## Height Comparison
+This chart, visualized with eCharts, compares the height of the selected Pokemon with the height of the average human, represented with a picture of popular Pokemon trainer Ash Kechum.
+
+![Height Comaparison]()
+
+# Static Charts
+These charts on that dashboard don't change when the dropdown menu is selected. Instead, they give us valuable information regarding the distribution of all of the Pokemon's stats and types.
+
+## Pokemon Types
+Each Pokemon can be up to two element types. To represent the distribution of pokemon types across 800+ different Pokemon, we visualized that into a bubble chart. 
+
+![Bubble Chart]()
+
+The bigger the size of the bubble, the more pokemon there are with that combination of type(s). 
+
+## Attack and Defense Distribution
+The scatter plot compares all pokemon's defense (x-axis) and attack (y-axis) stats. The color scale of the point on the chart represents the pokemon's HP. 
+
+![Scatter Plot]()
+
 
 ## Resources
 
