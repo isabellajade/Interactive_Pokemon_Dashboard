@@ -11,23 +11,6 @@ import json
 from pprint import pprint
 import requests
 
-# assigning url
-
-#url = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json"
-# =======
-
-# url = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json"
-
-# making get request
-
-# pokemonDataResponse = requests.get(url)
-
-# making get request
-
-#pokemonDataResponse = requests.get(url)
-#pokemonData = pokemonDataResponse.json()
-
-#New MongoDB Pokeman Database; replaces pulling from previous GitHub .json file - William
 
 client = pymongo.MongoClient("mongodb+srv://admin:project123@tccedxproject3group3.kbc4ahv.mongodb.net/pokemon_data?retryWrites=true&w=majority")
 db = client["pokemon_data"]
